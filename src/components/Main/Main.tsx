@@ -87,7 +87,7 @@ export function Main() {
 
       number: {
         density: { enable: true, width: 1920, height: 1080 },
-        limit: 50,
+        limit: { mode: "delete", value: 50 },
         value: 30, // Jumlah debu dan ikon
       },
 

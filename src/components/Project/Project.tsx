@@ -3,6 +3,17 @@ import { Container } from "./styles";
 import externalLink from "../../assets/external-link.svg";
 import ScrollAnimation from "../ScrollAnimation/ScrollAnimation";
 
+interface ProjectData {
+  id: number;
+  title: string;
+  image: string;
+  desc: string;
+  tech: string[];
+  platform: string[];
+  visitUrl: string | null;
+  downloadUrl: string;
+}
+
 // Ikon Download SVG
 const DownloadIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -20,7 +31,7 @@ const CloseIcon = () => (
   </svg>
 );
 
-const projectsData = [
+const projectsData: ProjectData[] = [
   {
     id: 1,
     title: "DepsStore",
@@ -74,7 +85,8 @@ const projectsData = [
 ];
 
 export function Project() {
-  const [selectedProject, setSelectedProject] = useState(null);
+  // KUNCI PERBAIKAN: Menambahkan tipe <ProjectData | null> pada useState
+  const [selectedProject, setSelectedProject] = useState<ProjectData | null>(null);
 
   return (
     <Container id="project">
@@ -99,7 +111,7 @@ export function Project() {
                   target="_blank" 
                   rel="noreferrer" 
                   className="visit-btn-icon"
-                  onClick={(e) => e.stopPropagation()} // Cegah modal kebuka saat tombol visit diklik
+                  onClick={(e) => e.stopPropagation()} 
                 >
                   <img src={externalLink} alt="Visit" />
                 </a>
@@ -134,10 +146,11 @@ export function Project() {
               <p>{selectedProject.desc}</p>
               
               <div className="tech-list">
-                {selectedProject.tech.map((t, i) => (
+                {/* KUNCI PERBAIKAN: Menambahkan tipe data (t: string, i: number) pada map */}
+                {selectedProject.tech.map((t: string, i: number) => (
                   <span key={`tech-${i}`}>{t}</span>
                 ))}
-                {selectedProject.platform.map((p, i) => (
+                {selectedProject.platform.map((p: string, i: number) => (
                   <span key={`plat-${i}`} style={{ background: '#444' }}>{p}</span>
                 ))}
               </div>
